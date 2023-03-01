@@ -7,5 +7,6 @@
         public string LastName { get; set; }
         public string PasswordHash { get; set; }
         public bool IsVendor { get; set; }
+        public float Solde { get; set; }
     }
 }

@@ -4,7 +4,7 @@ builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
 var app = builder.Build();
 
-app.UseMvc(routes => routes.MapRoute("Default", "{controller=Connexion}/{action=ClientConnexion}"));
+app.UseMvc(routes => routes.MapRoute("Default", "{controller=Panier}/{action=Index}"));
 
 app.UseFileServer();
 
