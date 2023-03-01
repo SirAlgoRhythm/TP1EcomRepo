@@ -13,7 +13,7 @@ namespace TheWebsite.Controllers
             new Models.Utilisateur { UtilisateurId=Guid.NewGuid(), Name="Nom3", LastName="LastName3", IsVendor=false}
         };
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Connexion(Models.ConnexionUtilisateur connexionUtilisateur)
         {
             //à mettre quand on va utiliser la bd
@@ -28,7 +28,7 @@ namespace TheWebsite.Controllers
             //{
             //    return View();
             //}
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return RedirectToAction("Index", "Home");
             //return View();
         }
         [HttpGet]
