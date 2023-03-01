@@ -2,7 +2,7 @@
 
 namespace TheWebsite
 {
-    public class TheWebsiteContext: DbContext
+    public class TheWebsiteContext : DbContext
     {
         public DbSet<Models.Facture> Factures { get; set; }
         public DbSet<Models.Produit> Produits { get; set; }
@@ -16,6 +16,14 @@ namespace TheWebsite
             string connStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TheWebsiteDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             string dbName = "TheWebsiteDB";
             dbContextOptionsBuilder.UseSqlServer($"{connStr};Database={dbName};");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Models.Utilisateur>().HasData(
+                new Models.Utilisateur() {UtilisateurId= Guid.NewGuid(), IsVendor=false, LastName="nom1", Name="prenom1", PasswordHash="motdepasse",Solde=123 },
+                new Models.Utilisateur() { UtilisateurId = Guid.NewGuid(), IsVendor = true, LastName = "nom2", Name = "prenom2", PasswordHash = "motdepasse", Solde = 13 }
+                );
         }
 
     }

@@ -6,7 +6,7 @@
 @model TheWebsite.Models.Utilisateur
 
 <div class="w-50 h-50 position-absolute top-50 start-50 translate-middle">
-    <form asp-action="ClientAded">
+    <form asp-action="@ViewBag.actionForm">
         <div class="mb-3 row">
             <label asp-for="LastName" class="col-sm-2 col-form-label">Nom</label>
             <div class="col-sm-10">
@@ -27,28 +27,26 @@
             <label asp-for="UtilisateurId" class="col-sm-2 col-form-label">Identifiant</label>
             <div class="col-sm-10">
                 <input asp-for="UtilisateurId" readonly type="text" class="form-control-plaintext" value="@ViewBag.Id">
+                <span asp-validation-for="UtilisateurId" class="text-danger"></span>
+
             </div>
         </div>
 
         <div class="mb-3 row">
-            <label asp-for="PasswordHash" class="col-sm-2 col-form-label">Identifiant</label>
+            <label asp-for="PasswordHash" class="col-sm-2 col-form-label">Mot de passe</label>
             <div class="col-sm-10">
-                <input asp-for="PasswordHash" readonly type="text" class="form-control-plaintext" value="123mdp">
+                <input asp-for="PasswordHash" type="password" class="form-control-plaintext">
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+
             </div>
         </div>
-
-        @Html.Raw(ViewBag.Partial)
+        @if (ViewBag.forClient)
+        {
+            <partial name="_SoldeInscription" model=Model />
+        }
 
         <div class="d-flex flex-column bd-highlight mb-3">
-            <input type="submit" class="btn btn-primary m-1" value="Créeation"   />
+            <input type="submit" class="btn btn-primary m-1" value="Création"   />
         </div>
     </form>
-
-    <span asp-validation-for="Name" class="text-danger"></span>
-    <span asp-validation-for="LastName" class="text-danger"></span>
-    <span asp-validation-for="UtilisateurId" class="text-danger"></span>
-    <span asp-validation-for="IsVendor" class="text-danger"></span>
-    <span asp-validation-for="Solde" class="text-danger"></span>
-    <span asp-validation-for="PasswordHash" class="text-danger"></span>
-
 </div>
