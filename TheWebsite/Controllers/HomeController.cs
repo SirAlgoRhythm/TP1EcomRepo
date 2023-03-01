@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TheWebsite.Models;
 
 namespace TheWebsite.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(Models.Utilisateur utilisateur)
         {
-            return View();
+            IndexVM indexVM = new IndexVM(utilisateur);
+            return View(indexVM);
         }
     }
 }

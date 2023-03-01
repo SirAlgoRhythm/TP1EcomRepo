@@ -12,17 +12,18 @@ namespace TheWebsite.Controllers
             this.DbContext = new TheWebsiteContext();
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Connexion(Models.Utilisateur utilisateur)
         {
             //chercher l'utilisateur dans la bd
-            //Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(connexionUtilisateur.UtilisateurId);
 
-            if (this.DbContext.Utilisateurs.Any(o=>o.UtilisateurId== utilisateur.UtilisateurId))
+
+            if (this.DbContext.Utilisateurs.Any(o=>o.UtilisateurId == utilisateur.UtilisateurId))
             {
-                return RedirectToAction("Index", "Home");
+                Models.Utilisateur user = this.DbContext.Utilisateurs.Find(utilisateur.UtilisateurId);
+                return RedirectToAction("Index", "Home", user);
             }
-            return View();
+            return RedirectToAction("ClientConnexion", "Compte");
 
         }
         [HttpGet]
@@ -46,20 +47,19 @@ namespace TheWebsite.Controllers
         [HttpGet]
         public IActionResult VendorConnexion()
         {
-            Models.ConnexionUtilisateur connexionUtilisateur = new Models.ConnexionUtilisateur();
+            Models.Utilisateur connexionUtilisateur = new Models.Utilisateur();
 
             //Chercher la liste des vendeurs
             List<Models.Utilisateur> utilisateurs = this.DbContext.Utilisateurs.Where(u => u.IsVendor).ToList();
-
-            connexionUtilisateur.Utilisateurs = utilisateurs;
             
             ViewBag.UserType = "Vendeur";
             ViewBag.Switch = "ClientConnexion";
             ViewBag.Add = "VendorAdd";
             ViewBag.ButtonText = "client";
+            ViewBag.Data = utilisateurs;
 
 
-            return View("Connexion", connexionUtilisateur);
+            return View("Connexion", utilisateurs);
         }
         [HttpGet]
         public IActionResult ClientAdd()
@@ -79,7 +79,7 @@ namespace TheWebsite.Controllers
                 //mettre l'utilisateur dans la bd
                 this.DbContext.Utilisateurs.Add(utilisateur);
                 this.DbContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", utilisateur);
             }
 
             ViewBag.Id = Guid.NewGuid();
@@ -105,7 +105,7 @@ namespace TheWebsite.Controllers
                 //mettre l'utilisateur dans la bd
                 this.DbContext.Utilisateurs.Add(utilisateur);
                 this.DbContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", utilisateur);
             }
             ViewBag.Id = Guid.NewGuid();
             ViewBag.forClient = false;
