@@ -3,6 +3,7 @@
 @{
     Layout = "_Layout";
 }
+
 @model TheWebsite.Models.ConnexionUtilisateur
 
 <div class="w-25 h-50 position-absolute top-50 start-50 translate-middle">
@@ -11,10 +12,10 @@
             <label asp-for="UtilisateurId" class="col-sm-2 col-form-label">@ViewBag.UserType</label>
             <div class="col-sm-10">
                 <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                    <option asp-for="UtilisateurId" value="" selected="selected">Choisir...</option>
+                    <option asp-for="UtilisateurId" value="" name="default" selected="selected">Choisir...</option>
                     @foreach (var utilisateur in Model.Utilisateurs)
                     {
-                        <option asp-for="UtilisateurId" value="@utilisateur.UtilisateurId">@utilisateur.Name</option>
+                        <option asp-for="UtilisateurId" value="@utilisateur.UtilisateurId" name="@utilisateur.Name">@utilisateur.Name</option>
                     }
                 </select>
                 <span asp-validation-for="UtilisateurId" class="text-danger"></span>

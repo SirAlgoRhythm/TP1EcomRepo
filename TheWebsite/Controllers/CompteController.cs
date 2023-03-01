@@ -6,6 +6,11 @@ namespace TheWebsite.Controllers
 {
     public class CompteController : Controller
     {
+        public TheWebsiteContext DbContext { get; set; }
+        public CompteController()
+        {
+            this.DbContext = new TheWebsiteContext();
+        }
         //à enlever quand on va utiliser la bd
         List<Models.Utilisateur> allUtilisateurs = new List<Models.Utilisateur>() {
             new Models.Utilisateur { UtilisateurId=Guid.NewGuid(), Name="Nom1", LastName="LastName1", IsVendor=false},
@@ -14,33 +19,29 @@ namespace TheWebsite.Controllers
         };
 
         [HttpGet]
-        public IActionResult Connexion(Models.ConnexionUtilisateur connexionUtilisateur)
+        public IActionResult Connexion(TheWebsite.Models.ConnexionUtilisateur connexionUtilisateur)
         {
             //à mettre quand on va utiliser la bd
             //TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
             //Models.Utilisateur utilisateur = theWebsiteContext.Utilisateurs.Where(u => !u.UtilisateurId == utilisateurId).First();
 
-            //if (connexionUtilisateur.UtilisateurId != default(Guid))
-            //{
-            //    return RedirectToAction("Index", "Home", new { area = "" }/*, utilisateur*/);
-            //}
-            //else
-            //{
-            //    return View();
-            //}
-            return RedirectToAction("Index", "Home");
-            //return View();
+            if (connexionUtilisateur.UtilisateurId != default(Guid))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+
         }
         [HttpGet]
         public IActionResult ClientConnexion()
         {
-            Models.ConnexionUtilisateur connexionUtilisateur = new Models.ConnexionUtilisateur();
+            TheWebsite.Models.ConnexionUtilisateur connexionUtilisateur = new TheWebsite.Models.ConnexionUtilisateur();
             //à mettre quand on va utiliser la bd
             //TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
             //List<Models.Utilisateur> utilisateurs = theWebsiteContext.Utilisateurs.Where(u => !u.IsVendor).ToList();
 
             //à enlever quand on va utiliser la bd
-            List<Models.Utilisateur> utilisateurs = new List<Models.Utilisateur>();
+            List<TheWebsite.Models.Utilisateur> utilisateurs = new List<TheWebsite.Models.Utilisateur>();
             foreach (var utilisateur in allUtilisateurs)
             {
                 if (!utilisateur.IsVendor)
@@ -62,8 +63,7 @@ namespace TheWebsite.Controllers
         {
             Models.ConnexionUtilisateur connexionUtilisateur = new Models.ConnexionUtilisateur();
             //à mettre quand on va utiliser la bd
-            //TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
-            //List<Models.Utilisateur> utilisateurs = theWebsiteContext.Utilisateurs.Where(u => u.IsVendor).ToList();
+            //List<Models.Utilisateur> utilisateurs = this.DbContext.Utilisateurs.Where(u => u.IsVendor).ToList();
 
             //à enlever quand on va utiliser la bd
             List<Models.Utilisateur> utilisateurs = new List<Models.Utilisateur>();
@@ -88,24 +88,30 @@ namespace TheWebsite.Controllers
         [HttpGet]
         public IActionResult ClientAdd()
         {
+            //ViewBag.Id = Guid.NewGuid();
+            ViewBag.Partial = "        <div class=\"mb-3 row\">\r\n            <label asp-for=\"Solde\" class=\"col-sm-2 col-form-label\">Solde</label>\r\n            <div class=\"col-sm-10\">\r\n                <input asp-for=\"Solde\" type=\"text\" class=\"form-control\" placeholder=\"Solde\">\r\n                <span asp-validation-for=\"Solde\" class=\"text-danger\"></span>\r\n            </div>\r\n        </div>";
+            return View("Inscription");
+        }
+        [HttpGet]
+        public IActionResult ClientAdded(Models.Utilisateur utilisateur)
+        {
+            //utilisateur.IsVendor = false;
+
+            if (ModelState.IsValid)
+            {
+                //mettre l'utilisateur dans la bd
+                this.DbContext.Utilisateurs.Add(utilisateur);
+                this.DbContext.SaveChanges();
+                return RedirectToAction("InscriptionResult", utilisateur);
+            }
+
             ViewBag.Id = Guid.NewGuid();
             ViewBag.Partial = "        <div class=\"mb-3 row\">\r\n            <label asp-for=\"Solde\" class=\"col-sm-2 col-form-label\">Solde</label>\r\n            <div class=\"col-sm-10\">\r\n                <input asp-for=\"Solde\" type=\"text\" class=\"form-control\" placeholder=\"Solde\">\r\n                <span asp-validation-for=\"Solde\" class=\"text-danger\"></span>\r\n            </div>\r\n        </div>";
             return View("Inscription");
         }
-        [HttpPost]
-        public IActionResult ClientAdd(Models.Utilisateur utilisateur)
+        public IActionResult InscriptionResult(Models.Utilisateur utilisateur)
         {
-            if (ModelState.IsValid)
-            {
-                utilisateur.IsVendor = false;
-                //mettre l'utilisateur dans la bd
-                TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
-                theWebsiteContext.Utilisateurs.Add(utilisateur);
-                theWebsiteContext.SaveChanges();
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
-
-            return View("Inscription");
+            return View(utilisateur);
         }
         [HttpGet]
         public IActionResult VendorAdd()
@@ -121,9 +127,8 @@ namespace TheWebsite.Controllers
             {
                 utilisateur.IsVendor = true;
                 //mettre l'utilisateur dans la bd
-                TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
-                theWebsiteContext.Utilisateurs.Add(utilisateur);
-                theWebsiteContext.SaveChanges();
+                this.DbContext.Utilisateurs.Add(utilisateur);
+                this.DbContext.SaveChanges();
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             return View("Inscription");
@@ -132,23 +137,21 @@ namespace TheWebsite.Controllers
         public IActionResult ClientUpdate(Models.Utilisateur tempUtilisateur)
         {
             ////Trouver l'utilisateur dans la bd
-            //TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
-            //Models.Utilisateur utilisateur = theWebsiteContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
+            //Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
             ////faire les modifications
             //utilisateur.Name = tempUtilisateur.Name;
             //utilisateur.LastName = tempUtilisateur.LastName;
-            //theWebsiteContext.SaveChanges();
+            //this.DbContext.SaveChanges();
             return View("ClientModification", allUtilisateurs[0]);
         }
         public IActionResult VendorUpdate(Models.Utilisateur tempUtilisateur)
         {
             ////Trouver l'utilisateur dans la bd
-            //TheWebsiteContext theWebsiteContext = new TheWebsiteContext();
-            //Models.Utilisateur utilisateur = theWebsiteContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
+            //Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
             ////faire les modifications
             //utilisateur.Name = tempUtilisateur.Name;
             //utilisateur.LastName = tempUtilisateur.LastName;
-            //theWebsiteContext.SaveChanges();
+            //this.DbContext.SaveChanges();
             return View("VendorModification", allUtilisateurs[0]);
         }
     }
