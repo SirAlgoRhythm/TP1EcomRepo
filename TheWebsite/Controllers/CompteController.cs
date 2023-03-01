@@ -88,14 +88,15 @@ namespace TheWebsite.Controllers
         [HttpGet]
         public IActionResult ClientAdd()
         {
-            //ViewBag.Id = Guid.NewGuid();
+            ViewBag.Id = Guid.NewGuid();
             ViewBag.Partial = "        <div class=\"mb-3 row\">\r\n            <label asp-for=\"Solde\" class=\"col-sm-2 col-form-label\">Solde</label>\r\n            <div class=\"col-sm-10\">\r\n                <input asp-for=\"Solde\" type=\"text\" class=\"form-control\" placeholder=\"Solde\">\r\n                <span asp-validation-for=\"Solde\" class=\"text-danger\"></span>\r\n            </div>\r\n        </div>";
             return View("Inscription");
         }
-        [HttpGet]
-        public IActionResult ClientAdded(Models.Utilisateur utilisateur)
+        [HttpPost]
+        public IActionResult ClientAded(Models.Utilisateur utilisateur)
         {
-            //utilisateur.IsVendor = false;
+            utilisateur.IsVendor = false;
+            utilisateur.PasswordHash = "123mdp";
 
             if (ModelState.IsValid)
             {
