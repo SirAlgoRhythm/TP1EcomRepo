@@ -4,5 +4,18 @@
     Layout = "_Layout";
 }
 @model TheWebsite.Models.Utilisateur
+
 <partial name="TopNavbar" />
-<partial name="_Modification" model=Model />
+
+<div class="w-50 h-50 position-absolute top-50 start-50 translate-middle">
+    <form asp-action="VendorUpdate" method="post">
+
+        <partial name="_Modification" model=Model />
+
+        <div class="d-flex bd-highlight mb-3">
+            <button type="submit" class="btn btn-primary m-1 w-50" >Modifier</button>
+            <button type="button" class="btn btn-primary m-1 w-50" asp-controller="Home" asp-action="Index">Retour</button>
+        </div>
+
+    </form>
+</div>

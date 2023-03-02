@@ -6,5 +6,5 @@
 
 <div class="container p-2 my-2 border d-flex justify-content-between">
     <div class="py-3">@Model.UtilisateurActif.Name @Model.UtilisateurActif.LastName</div>
-    <div class="p-2"><button type="button" class="btn btn-success" asp-action="">Aller au panier</button></div>
+    <div class="p-2"><a type="button" class="btn btn-success" asp-controller="Panier" asp-action="Index">Aller au panier</a></div>
 </div>

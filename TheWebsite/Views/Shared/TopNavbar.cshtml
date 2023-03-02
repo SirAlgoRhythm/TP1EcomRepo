@@ -1,6 +1,7 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
 }
+@model TheWebsite.Models.IndexVM
 
 <div class="container p-0 my-3 border">
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -10,10 +11,16 @@
                     <a class="nav-link active" href="#">Active</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" asp-controller="Facture" asp-action="Facture">Factures</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" asp-controller="Produits" asp-action="GestionProduits">Gestion des produits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Statistique" asp-action="Index">Statistiques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Compte" asp-action="VendorUpdate" model=Model.UtilisateurActif>Modification du compte</a>
                 </li>
             </ul>
         </div>

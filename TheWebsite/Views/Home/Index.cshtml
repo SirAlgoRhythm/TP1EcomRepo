@@ -5,7 +5,14 @@
 
 @model TheWebsite.Models.IndexVM
 
-<partial name="TopBanner" model="Model"/>
+@if (Model.UtilisateurActif.IsVendor)
+{
+    <partial name="TopNavbar" />
+}
+else
+{
+    <partial name="TopBanner" model="Model" />
+}
 
 <div class="container py-2 px-0 my-2 d-flex">
     <div class="p-2 me-2 mt-lg-5 border align-self-start"><partial name="Filtre" /></div>
