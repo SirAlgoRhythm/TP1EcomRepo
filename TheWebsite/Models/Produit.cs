@@ -8,6 +8,7 @@
         public string Gender { get; set; }
         public Double Price { get; set; }
         public string Vendor { get; set; }
+        public Guid UtilisateurId { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
 

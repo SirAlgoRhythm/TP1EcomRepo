@@ -15,11 +15,9 @@ namespace TheWebsite.Controllers
         [HttpPost]
         public IActionResult Connexion(Models.Utilisateur utilisateur)
         {
-            //chercher l'utilisateur dans la bd
-
-
             if (this.DbContext.Utilisateurs.Any(o=>o.UtilisateurId == utilisateur.UtilisateurId))
             {
+                //chercher l'utilisateur dans la bd
                 Models.Utilisateur user = this.DbContext.Utilisateurs.Find(utilisateur.UtilisateurId);
                 return RedirectToAction("Index", "Home", user);
             }
