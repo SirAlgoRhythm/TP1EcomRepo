@@ -2,9 +2,11 @@
 @{
 }
 
+@model TheWebsite.Models.Produit
+
 <div class="container border d-flex">
     <div class="p-2">
-        <img class="rounded imgSize border-1" />
+        <img class="rounded imgSize border-1" src="@Model.ImageURL" alt="@Model.Description" />
     </div>
 
     <div class="flex-grow-1 d-flex justify-content-between">
@@ -14,7 +16,7 @@
                     <label class="form-label mt-2" for="Title">Titre:</label>
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control" placeholder="Entrer le titre" />
+                    <input type="text" class="form-control" value="@Model.Title" />
                 </div>
             </div>
 
@@ -23,7 +25,7 @@
                     <label class="form-label mt-2" for="PrixUnitaire">Prix unitaire:</label>
                 </div>
                 <div class="col-6">
-                    <input type="number" class="form-control" step="0.05" />
+                    <input type="number" class="form-control" step="0.05" value="@Model.Price" />
                 </div>
             </div>
 
