@@ -11,7 +11,7 @@
 }
 else
 {
-    <partial name="TopBanner" model="Model" />
+    <partial name="TopBanner" model="Model.UtilisateurActif" />
 }
 
 <div class="container py-2 px-0 my-2 d-flex">
@@ -29,6 +29,10 @@ else
         </div>
 
         <h1 class="mt-3">Résultats</h1>
-        <partial name="BoiteProduit" />
+        @foreach (TheWebsite.Models.Produit produit in Model.ProduitList)
+        {
+                    <partial name="BoiteProduit" model=produit />
+        }
+
     </div>
 </div>
