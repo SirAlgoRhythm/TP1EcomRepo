@@ -10,10 +10,12 @@ namespace TheWebsite.Controllers
         {
             this.DbContext = new TheWebsiteContext();
         }
-        public IActionResult GestionProduits(Models.Utilisateur utilisateur)
+        public IActionResult GestionProduits(Guid utilisateurId)
         {
+            //Trouver le vendeur
+            Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(utilisateurId);
             //Donne la liste des produits actifs du vendeur connecté
-            List<Models.Produit> produitList = this.DbContext.Produits.Where(u => u.UtilisateurId == utilisateur.UtilisateurId).ToList();
+            List<Models.Produit> produitList = this.DbContext.Produits.Where(u => u.UtilisateurId == utilisateurId).ToList();
             Models.GestionProduitVM gestionProduitVM = new GestionProduitVM(utilisateur, produitList);
             return View(gestionProduitVM);
         }

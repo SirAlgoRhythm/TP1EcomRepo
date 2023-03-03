@@ -5,7 +5,7 @@
 
 @model TheWebsite.Models.GestionProduitVM
 
-<partial name="TopNavbar" model="Model"/>
+<partial name="TopNavbar" model="Model.VendeurActif" />
 
 <div class="container border">
     <form asp-action="AddProduit" method="post">

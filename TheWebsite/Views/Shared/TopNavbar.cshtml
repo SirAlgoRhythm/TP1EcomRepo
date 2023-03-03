@@ -1,28 +1,37 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
 }
-@model TheWebsite.Models.IndexVM
+@*@model TheWebsite.Models.IndexVM
+*@
+@model TheWebsite.Models.Utilisateur
 
 <div class="container p-0 my-3 border">
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link active" href="#">Acceuil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Facture" asp-action="Facture">Factures</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Produits" asp-action="GestionProduits">Gestion des produits</a>
+                    <form asp-controller="Produits" asp-action="GestionProduits">
+                        @Html.HiddenFor(x => x.UtilisateurId, "Value")
+                        <button type="submit" class="btn btn-link nav-link">Gestion des produits</button>
+                    </form>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Statistique" asp-action="Index">Statistiques</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Compte" asp-action="VendorUpdate" model=Model.UtilisateurActif>Modification du compte</a>
-                </li>
+                <li class="nav-item">                
+                    <form asp-controller="Compte" asp-action="VendorUpdate">
+                        @Html.HiddenFor(x => x.UtilisateurId, "Value")
+                        <button type="submit" class="btn btn-link nav-link" >Modification du compte</button>
+                    </form>
+               </li>
             </ul>
         </div>
     </nav>
 </div>
+@*@Model.UtilisateurActif.UtilisateurId*@

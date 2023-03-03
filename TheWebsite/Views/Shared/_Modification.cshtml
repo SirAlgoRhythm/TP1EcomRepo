@@ -25,3 +25,11 @@
         <span asp-validation-for="UtilisateurId" class="text-danger"></span>
     </div>
 </div>
+@Html.HiddenFor(x => x.PasswordHash, "Value")
+@Html.HiddenFor(x => x.IsVendor, "Value")
+@if (Model.IsVendor)
+{
+    @Html.HiddenFor(x => x.Solde, "Value")
+
+
+}

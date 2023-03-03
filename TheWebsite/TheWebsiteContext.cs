@@ -13,7 +13,7 @@ namespace TheWebsite
 
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
-            string connStr = "Data Source=(localdb)\\ProjectModels;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connStr = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TheWebsiteDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             string dbName = "TheWebsiteDB";
             dbContextOptionsBuilder.UseSqlServer($"{connStr};Database={dbName};");
         }

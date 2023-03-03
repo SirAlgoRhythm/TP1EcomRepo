@@ -122,15 +122,27 @@ namespace TheWebsite.Controllers
             this.DbContext.SaveChanges();
             return View("ClientModification", utilisateur);
         }
-        public IActionResult VendorUpdate(Models.Utilisateur tempUtilisateur)
+        [HttpPost]
+        public IActionResult VendorUpdate(Guid UtilisateurId)
         {
             //Trouver l'utilisateur dans la bd
-            Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
-            //faire les modifications
-            utilisateur.Name = tempUtilisateur.Name;
-            utilisateur.LastName = tempUtilisateur.LastName;
-            this.DbContext.SaveChanges();
+            Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(UtilisateurId);
             return View("VendorModification", utilisateur);
+        }
+        [HttpPost]
+        public IActionResult VendorUpdated(Models.Utilisateur tempUtilisateur)
+        {
+            if (ModelState.IsValid)
+            {
+                //Trouver l'utilisateur dans la bd
+                Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
+                //faire les modifications
+                utilisateur.Name = tempUtilisateur.Name;
+                utilisateur.LastName = tempUtilisateur.LastName;
+                this.DbContext.SaveChanges();
+                return RedirectToAction("Index", "Home", utilisateur);
+            }
+            return View("VendorModification", tempUtilisateur);
         }
     }
 }
