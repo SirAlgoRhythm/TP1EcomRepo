@@ -29,9 +29,32 @@ namespace TheWebsite.Controllers
                 produit.ProduitId = Guid.NewGuid();
                 this.DbContext.Produits.Add(produit);
                 this.DbContext.SaveChanges();
-                return RedirectToAction("GestionProduits", vendeur);
+                return RedirectToAction("GestionProduits", "Produits", vendeur);
             }
             return View(vendeur);
+        }
+
+        [HttpPost]
+        public IActionResult SupprimerProduit(Guid produitId)
+        {
+            Models.Produit produit = this.DbContext.Produits.Find(produitId);
+            Guid vendeurActif = produit.UtilisateurId;
+            DbContext.Remove(produit);
+            DbContext.SaveChanges();
+            return RedirectToAction("GestionProduits",vendeurActif);
+        }
+
+        [HttpPost]
+        public IActionResult ModifierProduit(Guid produitId, string Title, double Price, int Quantite)
+        {
+            Models.Produit produit = this.DbContext.Produits.Find(produitId);
+            Models.Utilisateur vendeurActif = this.DbContext.Utilisateurs.Find(produit.UtilisateurId);
+
+            produit.Title = Title;
+            produit.Price = Price;
+            produit.Quantite = Quantite;
+            DbContext.SaveChanges();
+            return RedirectToAction("GestionProduits", "Produits", vendeurActif);
         }
     }
 }
