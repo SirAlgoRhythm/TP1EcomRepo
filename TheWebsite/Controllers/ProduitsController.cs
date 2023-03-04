@@ -38,7 +38,7 @@ namespace TheWebsite.Controllers
         public IActionResult SupprimerProduit(Guid produitId)
         {
             Models.Produit produit = this.DbContext.Produits.Find(produitId);
-            Guid vendeurActif = produit.UtilisateurId;
+            Models.Utilisateur vendeurActif = this.DbContext.Utilisateurs.Find(produit.UtilisateurId);
             DbContext.Remove(produit);
             DbContext.SaveChanges();
             return RedirectToAction("GestionProduits",vendeurActif);

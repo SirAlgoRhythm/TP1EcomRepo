@@ -28,8 +28,8 @@ namespace TheWebsite.Controllers
                     //Si le vendeur est lui qu'on veut 
                     if(produit.Produit.UtilisateurId == vendeurId)
                     {
-                        totalArticleSold += produit.Number;
-                        totalCashReceved += (produit.Produit.Price) * produit.Number;
+                        totalArticleSold += produit.Produit.Quantite;
+                        totalCashReceved += (produit.Produit.Price) * produit.Produit.Quantite;
                     }
                 }
             }
