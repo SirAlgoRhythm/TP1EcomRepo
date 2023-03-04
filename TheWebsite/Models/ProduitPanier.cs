@@ -10,7 +10,6 @@ namespace TheWebsite.Models
         
         public Guid ProduitId { get; set; }
         public Produit Produit { get; set; }
-        public int Number { get; set; }
 
         public Guid FactureId { get; set; }
         public Facture Facture { get; set; }
