@@ -6,10 +6,23 @@
 
 <div class="container p-2 my-2 border d-flex justify-content-between">
     <div class="py-3">@Html.DisplayFor(x => x.Name) @Html.DisplayFor(x => x.LastName)</div>
-    <div class="p-2">
+    <div class="p-2 d-flex">
+
         <form asp-controller="Panier" asp-action="Index">
             @Html.HiddenFor(x => x.UtilisateurId, "Value")
-            <button type="submit" class="btn btn-success">Aller au panier</button>
+            <button type="submit" class="btn btn-success m-1">Aller au panier</button>
         </form>
+
+        <form asp-controller="Compte" asp-action="Update">
+            @Html.HiddenFor(x => x.UtilisateurId, "Value")
+            <button type="submit" class="btn btn-success m-1">Compte </button>
+        </form>
+
+        <form asp-controller="Home" asp-action="Index">
+            @Html.HiddenFor(x=>x, "Value")
+            <button type="submit" class="btn btn-danger m-1">Retour </button>
+        </form>
+
     </div>
+
 </div>

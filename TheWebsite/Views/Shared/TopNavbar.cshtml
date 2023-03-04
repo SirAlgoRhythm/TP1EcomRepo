@@ -25,7 +25,7 @@
                     <a class="nav-link" asp-controller="Statistique" asp-action="VendorStatistique">Statistiques</a>
                 </li>
                 <li class="nav-item">                
-                    <form asp-controller="Compte" asp-action="VendorUpdate">
+                    <form asp-controller="Compte" asp-action="Update">
                         @Html.HiddenFor(x => x.UtilisateurId, "Value")
                         <button type="submit" class="btn btn-link nav-link" >Modification du compte</button>
                     </form>

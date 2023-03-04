@@ -111,26 +111,15 @@ namespace TheWebsite.Controllers
 
             return View("Inscription");
         }
-        [HttpGet]
-        public IActionResult ClientUpdate(Models.Utilisateur tempUtilisateur)
-        {
-            //Trouver l'utilisateur dans la bd
-            Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(tempUtilisateur.UtilisateurId);
-            //faire les modifications
-            utilisateur.Name = tempUtilisateur.Name;
-            utilisateur.LastName = tempUtilisateur.LastName;
-            this.DbContext.SaveChanges();
-            return View("ClientModification", utilisateur);
-        }
         [HttpPost]
-        public IActionResult VendorUpdate(Guid UtilisateurId)
+        public IActionResult Update(Guid UtilisateurId)
         {
             //Trouver l'utilisateur dans la bd
             Models.Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(UtilisateurId);
-            return View("VendorModification", utilisateur);
+            return View("Modification", utilisateur);
         }
         [HttpPost]
-        public IActionResult VendorUpdated(Models.Utilisateur tempUtilisateur)
+        public IActionResult Updated(Models.Utilisateur tempUtilisateur)
         {
             if (ModelState.IsValid)
             {
@@ -140,9 +129,9 @@ namespace TheWebsite.Controllers
                 utilisateur.Name = tempUtilisateur.Name;
                 utilisateur.LastName = tempUtilisateur.LastName;
                 this.DbContext.SaveChanges();
-                return RedirectToAction("Index", "Home", utilisateur);
+                return View("Modification", utilisateur);
             }
-            return View("VendorModification", tempUtilisateur);
+            return View("Modification", tempUtilisateur);
         }
     }
 }
