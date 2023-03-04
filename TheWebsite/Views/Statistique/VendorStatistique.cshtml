@@ -2,8 +2,10 @@
 @{
     Layout = "_Layout";
 }
+@model TheWebsite.Models.StatistiqueVendeur
 
-<partial name="TopNavbar" />
+<partial name="TopNavbar" model="ViewBag.Vendeur" />
+
 <div class="container">
     <h1>Statistiques</h1>
     <!-- Le div ne sert qu'à faire une ligne dans la page -->
@@ -11,16 +13,16 @@
 
     <div class="d-flex justify-content-between">
         <p>Total des sommes dépensées</p>
-        <p>123 CAD</p>
+        <p>@Model.TotalCashReceved CAD</p>
     </div>
 
     <div class="d-flex justify-content-between">
         <p>Bénéfices (15%)</p>
-        <p>123 CAD</p>
+        <p>@Model.Profit CAD</p>
     </div>
 
     <div class="d-flex justify-content-between">
         <p>Nombre d'articles achetés</p>
-        <p>123</p>
+        <p>@Model.TotalArticleSold</p>
     </div>
 </div>
