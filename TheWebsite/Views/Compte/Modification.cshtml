@@ -42,12 +42,20 @@ else
                 <span asp-validation-for="UtilisateurId" class="text-danger"></span>
             </div>
         </div>
+
+        @if (!Model.IsVendor)
+        {
+            <div class="mb-3 row">
+                <label asp-for="Solde" class="col-sm-2 col-form-label">Solde</label>
+                <div class="col-sm-10">
+                    <input asp-for="Solde" type="number"  class="form-control" value="@Model.Solde" />
+                    <span asp-validation-for="Solde" class="text-danger"></span>
+                </div>
+            </div>
+        }
+
         @Html.HiddenFor(x => x.PasswordHash, "Value")
         @Html.HiddenFor(x => x.IsVendor, "Value")
-        @if (Model.IsVendor)
-        {
-            @Html.HiddenFor(x => x.Solde, "Value")
-        }
 
         <div class="d-flex bd-highlight mb-3">
             <button type="submit" class="btn btn-primary m-1 w-50" >Modifier</button>

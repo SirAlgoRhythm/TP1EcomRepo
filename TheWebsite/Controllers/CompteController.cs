@@ -128,6 +128,10 @@ namespace TheWebsite.Controllers
                 //faire les modifications
                 utilisateur.Name = tempUtilisateur.Name;
                 utilisateur.LastName = tempUtilisateur.LastName;
+                if (!utilisateur.IsVendor)
+                {
+                    utilisateur.Solde=tempUtilisateur.Solde;
+                }
                 this.DbContext.SaveChanges();
                 return View("Modification", utilisateur);
             }
