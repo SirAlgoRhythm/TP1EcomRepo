@@ -18,20 +18,21 @@ else
     <div class="p-2 me-2 mt-lg-5 border align-self-start"><partial name="Filtre" /></div>
 
     <div class="p-2 flex-grow-1">
-        <div class="d-flex">
+        <form method="get" asp-action="Recherche" class="d-flex">
             <div class="flex-grow-1">
                 <input class="w-75 h-100" type="text" name="search" placeholder="Recherche...">
             </div>
 
             <div class="pe-2">
-                <button type="button" class="btn btn-secondary">Chercher</button>
+                <input type="hidden" name="utilisateurId" value="@Model.UtilisateurActif.UtilisateurId" />
+                <button type="submit" class="btn btn-secondary">Chercher</button>
             </div>
-        </div>
+        </form>
 
         <h1 class="mt-3">Résultats</h1>
         @foreach (TheWebsite.Models.Produit produit in Model.ProduitList)
         {
-                    <partial name="BoiteProduit" model=produit />
+            <partial name="BoiteProduit" model=produit />
         }
 
     </div>

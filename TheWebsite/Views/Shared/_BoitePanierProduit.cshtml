@@ -1,23 +1,52 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model TheWebsite.Models.Produit
 
-@{
-}
-<div class="d-flex border p-2 mt-2">
+<div class="container border d-flex">
     <div class="p-2">
-        <img class="rounded imgSize border-1" />
+        <img class="rounded imgSize border-1" src="@Model.ImageURL" alt="@Model.Description" />
     </div>
 
-    <div class="flex-grow-1">
-        <div><b class="text-info ps-2">Titre:</b> wocniwni</div>
-        <div><b class="text-info ps-2">Vendeur:</b> wocniwni</div>
-        <div><b class="text-info ps-2">Prix:</b> wocniwni</div>
+    <div class="flex-grow-1 d-flex justify-content-between">
+
         <div>
-            <b class="text-info ps-2">Quantité:</b>
-            <input type="number" />
-        </div>
-    </div>
+            <form method="post" asp-action="ModifierProduit">
+                <div class="row my-3">
+                    <div class="col-6">
+                        <label class="form-label mt-2" for="Title">Titre:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="formTitle" class="form-control" name="Title" value="@Model.Title" />
+                    </div>
+                </div>
 
-    <div>
-        <button type="button" class="btn btn-danger text-nowrap">Retirer</button>
+                <div class="row my-3">
+                    <div class="col-6">
+                        <label class="form-label mt-2" for="PrixUnitaire">Prix unitaire:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" id="formPrice" class="form-control" name="Price" step="0.05" value="@Model.Price" />
+                    </div>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col-6">
+                        <label class="form-label mt-2" for="Quantite">Quantité restante:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" id="formQuantite" class="form-control" name="Quantite" step="1" value="@Model.Quantite" />
+                    </div>
+                </div>
+                <input type="hidden" name="produitId" value="@Model.ProduitId" />
+                <button type="submit" class="btn btn-success w-100 mt-3 mb-2">Sauvegarder</button>
+            </form>
+        </div>
+        <div>
+            <form method="post" asp-action="SupprimerProduitPanier">
+                <input type="hidden" name="produitId" value="@Model.ProduitId" />
+                <button type="submit" class="btn btn-danger w-100 mt-3 mb-2">Retirer du panier</button>
+            </form>
+        </div>
+
     </div>
 </div>
