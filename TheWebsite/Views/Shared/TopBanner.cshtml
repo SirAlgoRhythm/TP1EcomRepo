@@ -19,7 +19,7 @@
         </form>
 
         <form asp-controller="Home" asp-action="Index">
-            @Html.HiddenFor(x=>x, "Value")
+            @Html.HiddenFor(x => x.UtilisateurId, "Value")
             <button type="submit" class="btn btn-danger m-1">Retour </button>
         </form>
 
