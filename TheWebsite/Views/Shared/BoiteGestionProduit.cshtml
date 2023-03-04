@@ -15,7 +15,7 @@
                         <label class="form-label mt-2" for="Title">Titre:</label>
                     </div>
                     <div class="col-6">
-                        <input type="text" id="formTitle" class="form-control" name="Title" value="@Model.Title" />
+                        <input type="text" class="form-control" name="Title" value="@Model.Title" />
                     </div>
                 </div>
 
@@ -24,7 +24,7 @@
                         <label class="form-label mt-2" for="PrixUnitaire">Prix unitaire:</label>
                     </div>
                     <div class="col-6">
-                        <input type="number" id="formPrice" class="form-control" name="Price" step="0.05" value="@Model.Price" />
+                        <input type="number" class="form-control" name="Price" step="0.05" value="@Model.Price" />
                     </div>
                 </div>
 
@@ -33,7 +33,7 @@
                         <label class="form-label mt-2" for="Quantite">Quantité restante:</label>
                     </div>
                     <div class="col-6">
-                        <input type="number" id="formQuantite" class="form-control" name="Quantite" step="1" value="@Model.Quantite" />
+                        <input type="number" class="form-control" name="Quantite" step="1" value="@Model.Quantite" />
                     </div>
                 </div>
                 <input type="hidden" name="produitId" value="@Model.ProduitId" />
@@ -48,10 +48,6 @@
                 <input type="hidden" name="produitId" value="@Model.ProduitId" />
                 <button type="submit" class="btn btn-danger w-100 mt-3 mb-2">Supprimer</button>
             </form>
-@*            <form method="post" asp-action="ModifierProduit">
-                <input type="hidden" name="produitId" value="@Model.ProduitId" />
-                <button type="submit" class="btn btn-success w-100 mt-3 mb-2">Sauvegarder</button>
-            </form>*@
         </div>
 
     </div>
