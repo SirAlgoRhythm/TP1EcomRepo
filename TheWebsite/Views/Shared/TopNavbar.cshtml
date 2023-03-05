@@ -22,7 +22,10 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Statistique" asp-action="VendorStatistique">Statistiques</a>
+                    <form asp-controller="Statistique" asp-action="VendorStatistique">
+                        @Html.HiddenFor(x => x.UtilisateurId, "Value")
+                        <button type="submit" class="btn btn-link nav-link">Gestion des produits</button>
+                    </form>
                 </li>
                 <li class="nav-item">                
                     <form asp-controller="Compte" asp-action="Update">

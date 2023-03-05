@@ -1,55 +1,70 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using System.Collections.Generic;
-//using TheWebsite.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using TheWebsite.Models;
 
-//namespace TheWebsite.Controllers
-//{
-//    public class StatistiqueController : Controller
-//    {
-//        public TheWebsiteContext DbContext { get; set; }
-//        public StatistiqueController()
-//        {
-//            this.DbContext = new TheWebsiteContext();
-//        }
-//        // À tester
-//        public IActionResult VendorStatistique(Guid vendeurId)
-//        {
-//            int totalArticleSold = 0;
-//            Double totalCashReceved = 0;
-//            Double profit;
+namespace TheWebsite.Controllers
+{
+    public class StatistiqueController : Controller
+    {
+        public TheWebsiteContext DbContext { get; set; }
+        public StatistiqueController()
+        {
+            this.DbContext = new TheWebsiteContext();
+        }
+        // À tester
+        public IActionResult VendorStatistique(Guid utilisateurId)
+        {
+            int totalArticleSold = 0;
+            Double totalCashReceved = 0;
+            Double profit = 0;
 
-//            //Trouver toutes les factures
-//            List<Facture> factures = this.DbContext.Factures.ToList();
-//            foreach(var facture in factures)
-//            {
-//                //Pour tous les produits dans une facture
-//                foreach(var produit in facture.ProduitPanierList)
-//                {
-//                    //Si le vendeur est lui qu'on veut 
-//                    if(produit.Produit.UtilisateurId == vendeurId)
-//                    {
-//                        totalArticleSold += produit.Produit.Quantite;
-//                        totalCashReceved += (produit.Produit.Price) * produit.Produit.Quantite;
-//                    }
-//                }
-//            }
-//            profit = (totalCashReceved * 15d / 100d);
+            StatistiqueVendeur statistique = new StatistiqueVendeur()
+            {
+                StatistiqueVendeurId = utilisateurId,
+                TotalArticleSold = totalArticleSold,
+                TotalCashReceved = totalCashReceved,
+                Profit = profit
+            };
+            //ajouter la statistique dans la bd
+            this.DbContext.StatistiqueVendeurs.Add(statistique);
+            //this.DbContext.SaveChanges();
 
-//            StatistiqueVendeur statistique = new StatistiqueVendeur() { StatistiqueVendeurId = vendeurId,
-//                                                                        //Ou c'est l'id de la statistique ?
-//                                                                        //StatistiqueVendeurId = Guid.NewGuid(),
-//                                                                        TotalCashReceved = totalCashReceved,
-//                                                                        Profit = profit, 
-//                                                                        TotalArticleSold = totalArticleSold };
-//            //ajouter la statistique dans la bd
-//            this.DbContext.StatistiqueVendeurs.Add(statistique);
-//            this.DbContext.SaveChanges();
+            // pour la view
+            StatistiqueUtilisateurVM statistiqueUtilisateurVM = new StatistiqueUtilisateurVM()
+            {
+                Utilisateur = this.DbContext.Utilisateurs.Find(utilisateurId),
+                StatistiqueVendeur = statistique
+            };
 
-//            //vendeur pour navbar
-//            Models.Utilisateur vendeur = this.DbContext.Utilisateurs.Find(vendeurId);
-//            ViewBag.Vendeur = vendeur;
+            return View(statistiqueUtilisateurVM);
+        }
 
-//            return View(statistique);
-//        }
-//    }
-//}
+        // À tester
+        public IActionResult ClientStatistique(Guid utilisateurId)
+        {
+            Double totalCashSpent = 0;
+            int totalArticleBought = 0;
+
+            StatistiqueClient statistique = new StatistiqueClient()
+            {
+                StatistiqueClientId = utilisateurId,
+                //Ou c'est l'id de la statistique ?
+                //StatistiqueClientId = Guid.NewGuid(),
+                TotalCashSpent = totalCashSpent,
+                TotalArticleBought = totalArticleBought
+            };
+            //ajouter la statistique dans la bd
+            this.DbContext.StatistiqueClients.Add(statistique);
+            //this.DbContext.SaveChanges();
+
+            // pour la view
+            StatistiqueUtilisateurVM statistiqueUtilisateurVM = new StatistiqueUtilisateurVM()
+            {
+                Utilisateur = this.DbContext.Utilisateurs.Find(utilisateurId),
+                StatistiqueClient = statistique
+            };
+
+            return View(statistiqueUtilisateurVM);
+        }
+    }
+}

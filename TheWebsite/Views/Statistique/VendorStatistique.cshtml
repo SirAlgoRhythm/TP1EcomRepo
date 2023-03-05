@@ -2,9 +2,10 @@
 @{
     Layout = "_Layout";
 }
-@model TheWebsite.Models.StatistiqueVendeur
+@model TheWebsite.Models.StatistiqueUtilisateurVM
 
-<partial name="TopNavbar" model="ViewBag.Vendeur" />
+<partial name="TopNavbar" model=Model.Utilisateur />
+@Model.Utilisateur.Name
 
 <div class="container">
     <h1>Statistiques</h1>
@@ -13,16 +14,16 @@
 
     <div class="d-flex justify-content-between">
         <p>Total des sommes dépensées</p>
-        <p>@Model.TotalCashReceved CAD</p>
+        <p>@Model.StatistiqueVendeur.TotalCashReceved CAD</p>
     </div>
 
     <div class="d-flex justify-content-between">
         <p>Bénéfices (15%)</p>
-        <p>@Model.Profit CAD</p>
+        <p>@Model.StatistiqueVendeur.Profit CAD</p>
     </div>
 
     <div class="d-flex justify-content-between">
-        <p>Nombre d'articles achetés</p>
-        <p>@Model.TotalArticleSold</p>
+        <p>Nombre d'articles vendus</p>
+        <p>@Model.StatistiqueVendeur.TotalArticleSold</p>
     </div>
 </div>

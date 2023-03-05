@@ -1,0 +1,27 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+
+@model TheWebsite.Models.Utilisateur
+
+<div class="container p-2 my-2 border d-flex justify-content-between">
+    <div class="py-3">@Html.DisplayFor(x => x.Name) @Html.DisplayFor(x => x.LastName)</div>
+    <div class="p-2 d-flex">
+        <form asp-controller="Statistique" asp-action="ClientStatistique">
+            @Html.HiddenFor(x => x.UtilisateurId, "Value")
+            <button type="submit" class="btn btn-success m-1">Statistique </button>
+        </form>
+
+        <form asp-controller="Compte" asp-action="Update">
+            @Html.HiddenFor(x => x.UtilisateurId, "Value")
+            <button type="submit" class="btn btn-success m-1">Compte </button>
+        </form>
+
+        <form asp-controller="Panier" asp-action="Index">
+            @Html.HiddenFor(x => x.UtilisateurId, "Value")
+            <button type="submit" class="btn btn-success m-1">Aller au panier</button>
+        </form>
+
+    </div>
+
+</div>
