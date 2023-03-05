@@ -37,34 +37,37 @@ namespace TheWebsite.Controllers
             return View("index", indexVM);
         }
 
-        public IActionResult AjoutPanier(Guid produitId)
+        public IActionResult AjoutPanier(Guid produitId, Guid utilisateurId)
         {
-            Produit produit = this.DbContext.Produits.Find(produitId);
-            Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(UtilisateurActif);
-            Models.ProduitPanier produitPanier = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == UtilisateurActif).First();
+            Produit produitAjout = this.DbContext.Produits.Find(produitId);
+            Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(utilisateurId);
 
-            if (produitPanier == null)
+            //Si on trouve un panier
+            if (this.DbContext.ProduitsPanier.Any(p => p.UtilisateurId == utilisateurId))
             {
-                //On crée un nouveau panier pour ce client
-                produitPanier = new ProduitPanier();
-                produitPanier.Produits.Add(produit);
-                produitPanier.UtilisateurId = UtilisateurActif;
-                produitPanier.Utilisateur = utilisateur;
-                produitPanier.ProduitPanierId = Guid.NewGuid();
+                Models.ProduitPanier produitPanier = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == utilisateurId).First();
+                // ajouter un produit à la liste de produits du panier
+                produitPanier.Produits.Add(produitAjout);
 
                 this.DbContext.SaveChanges();
             }
             else
             {
-                //Sinon on fait juste ajouter un produit à la liste de produits du panier
-                produitPanier.Produits.Add(produit);
+                //sinon on crée un nouveau panier pour ce client
+                Models.ProduitPanier produitPanier = new ProduitPanier();
+                produitPanier.Produits = new List<Produit>(); 
+                produitPanier.Produits.Add(produitAjout);
+                produitPanier.UtilisateurId = utilisateurId;
+                produitPanier.Utilisateur = utilisateur;
+                produitPanier.ProduitPanierId = Guid.NewGuid();
 
+                this.DbContext.ProduitsPanier.Add(produitPanier);
                 this.DbContext.SaveChanges();
             }
 
             List<Produit> produitList = this.DbContext.Produits.Where(p => p.ProduitId != produitId).ToList();
 
-            List<ProduitPanier> produitPanierList = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == UtilisateurActif).ToList();
+            List<ProduitPanier> produitPanierList = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == utilisateurId).ToList();
             
             IndexVM indexVM = new IndexVM(utilisateur, produitList, produitPanierList);
 

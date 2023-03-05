@@ -1,36 +1,29 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model TheWebsite.Models.Produit
 
-<div class="d-flex border p-2">
-    <div class="p-2">
-        <img class="rounded imgSize border-1" src="@Model.ImageURL" />
-    </div>
-    
-    <div class="flex-grow-1">
-        <div><b class="text-info ps-2">Titre:</b> @Model.Title</div>
-        <div><b class="text-info ps-2">Catégorie:</b> @Model.Categorie</div>
-        <div><b class="text-info ps-2">Pour:</b> @Model.Gender</div>
-        <div><b class="text-info ps-2">Vendeur:</b> @Model.Vendor</div>
-        <div><b class="text-info ps-2">Prix:</b> @Model.Price</div>
-        <div><b class="text-info ps-2">Quantité disponible:</b> @Model.Quantite</div>
-        <div class="ps-2 mt-1">
-            <b class="text-info">Description:</b>
+<div class="p-2">
+    <img class="rounded imgSize border-1" src="@Model.ImageURL" />
+</div>
 
-            <div class="d-flex justify-content-between">
-                <div>
-                    <p id="descriptionProduit" class="pe-3">
-                        @Model.Description
-                    </p>
-                </div>
+<div class="flex-grow-1">
+    <div><b class="text-info ps-2">Titre:</b> @Model.Title</div>
+    <div><b class="text-info ps-2">Catégorie:</b> @Model.Categorie</div>
+    <div><b class="text-info ps-2">Pour:</b> @Model.Gender</div>
+    <div><b class="text-info ps-2">Vendeur:</b> @Model.Vendor</div>
+    <div><b class="text-info ps-2">Prix:</b> @Model.Price</div>
+    <div><b class="text-info ps-2">Quantité disponible:</b> @Model.Quantite</div>
+    <div class="ps-2 mt-1">
+        <b class="text-info">Description:</b>
 
-                <div>
-                    <form method="post" asp-action="AjouterPanier">
-                        <input type="hidden" name="produitId" value="@Model.ProduitId" />
-                        <button type="submit" class="btn btn-success w-100 mt-3 mb-2">Ajouter au panier</button>
-                    </form>
-                </div>          
+        <div class="d-flex justify-content-between">
+            <div>
+                <p id="descriptionProduit" class="pe-3">
+                    @Model.Description
+                </p>
             </div>
+
+
         </div>
-     
     </div>
+
 </div>

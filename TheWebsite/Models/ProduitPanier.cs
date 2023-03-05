@@ -10,8 +10,9 @@ namespace TheWebsite.Models
         
         public List<Produit> Produits { get; set; }
 
-        public Guid FactureId { get; set; }
-        public Facture Facture { get; set; }
+        //Test one-to-one
+        //public Guid FactureId { get; set; }
+        //public Facture Facture { get; set; }
 
         public Guid UtilisateurId { get; set; }
         public Utilisateur Utilisateur { get; set; }

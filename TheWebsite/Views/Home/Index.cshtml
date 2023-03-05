@@ -32,7 +32,17 @@ else
         <h1 class="mt-3">Résultats</h1>
         @foreach (TheWebsite.Models.Produit produit in Model.ProduitList)
         {
-            <partial name="BoiteProduit" model=produit />
+            <div class="d-flex border p-2">
+                <partial name="BoiteProduit" model=produit />
+
+                <div>
+                    <form method="post" asp-action="AjoutPanier">
+                        <input type="hidden" name="produitId" value="@produit.ProduitId" />
+                        <input type="hidden" name="utilisateurId" value="@Model.UtilisateurActif.UtilisateurId" />
+                        <button type="submit" class="btn btn-success w-100 mt-3 mb-2 bottom-0">Ajouter au panier</button>
+                    </form>
+                </div>
+            </div>
         }
 
     </div>
