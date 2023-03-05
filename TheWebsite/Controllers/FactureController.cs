@@ -1,14 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TheWebsite.Models;
 
 namespace TheWebsite.Controllers
 {
     public class FactureController : Controller
     {
-        [HttpGet]
-        public IActionResult Facture()
+        public TheWebsiteContext DbContext { get; set; }
+        public FactureController()
         {
-            return View();
+            this.DbContext = new TheWebsiteContext();
+        }
+
+        [HttpGet]
+        public IActionResult Facture(Guid utilisateurId)
+        {
+            Utilisateur utilisateur = this.DbContext.Utilisateurs.Find(utilisateurId);
+
+            return View(utilisateur);
         }
     }
 }

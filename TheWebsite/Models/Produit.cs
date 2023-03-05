@@ -13,6 +13,10 @@
         public int Quantite { get; set; }
         public string ImageURL { get; set; }
 
+        ////test one-to-many
+        //public Guid ProduitPanierId { get; set; }
+        //public ProduitPanier ProduitPanier { get; set; }
+
 
     }
 }

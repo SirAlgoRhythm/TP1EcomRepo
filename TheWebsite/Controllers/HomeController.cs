@@ -45,23 +45,22 @@ namespace TheWebsite.Controllers
             //Si on trouve un panier
             if (this.DbContext.ProduitsPanier.Any(p => p.UtilisateurId == utilisateurId))
             {
-                Models.ProduitPanier produitPanier = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == utilisateurId).First();
+                Models.ProduitPanier panier = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == utilisateurId).First();
                 // ajouter un produit à la liste de produits du panier
-                produitPanier.Produits.Add(produitAjout);
-
+                panier.Produits.Add(produitAjout);
                 this.DbContext.SaveChanges();
             }
             else
             {
                 //sinon on crée un nouveau panier pour ce client
-                Models.ProduitPanier produitPanier = new ProduitPanier();
-                produitPanier.Produits = new List<Produit>(); 
-                produitPanier.Produits.Add(produitAjout);
-                produitPanier.UtilisateurId = utilisateurId;
-                produitPanier.Utilisateur = utilisateur;
-                produitPanier.ProduitPanierId = Guid.NewGuid();
+                Models.ProduitPanier panier = new ProduitPanier();
+                panier.Produits = new List<Produit>();
+                panier.Produits.Add(produitAjout);
+                panier.UtilisateurId = utilisateurId;
+                panier.Utilisateur = utilisateur;
+                panier.ProduitPanierId = Guid.NewGuid();
 
-                this.DbContext.ProduitsPanier.Add(produitPanier);
+                this.DbContext.ProduitsPanier.Add(panier);
                 this.DbContext.SaveChanges();
             }
 

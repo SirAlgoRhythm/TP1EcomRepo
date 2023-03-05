@@ -2,11 +2,22 @@
 @{
     Layout = "_Layout";
 }
+@model TheWebsite.Models.ProduitPanier
 
-<partial name="TopBanner" />
+<partial name="TopBanner" model=Model.Utilisateur/>
+
 <div class="container">
-    <partial name="_BoitePanierProduit" />
-    <partial name="_BoitePanierProduit" />
+    @if (ViewBag.Empty)
+    {
+        <p>Panier vide</p>
+    }
+    else
+    {
+        @foreach (TheWebsite.Models.Produit produit in Model.Produits)
+        {
+            <partial name="_BoitePanierProduit" model="produit" />
+        }
+    }
     <!-- Le div ne sert qu'à faire une ligne dans la page -->
     <div class="container my-3 border border-2 border-dark"><div></div></div>
     <div class="position-relative">

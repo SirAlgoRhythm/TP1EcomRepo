@@ -7,8 +7,15 @@ namespace TheWebsite.Models
     public class ProduitPanier
     {
         public Guid ProduitPanierId { get; set; }
-        
         public List<Produit> Produits { get; set; }
+
+        ////test one-to-many
+        //public ProduitPanier()
+        //{
+        //    Produits = new List<Produit>();
+        //}
+
+        //public ICollection<Produit> Produits { get; set; }
 
         //Test one-to-one
         //public Guid FactureId { get; set; }

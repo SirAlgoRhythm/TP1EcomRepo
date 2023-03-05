@@ -14,7 +14,14 @@ namespace TheWebsite.Controllers
         public IActionResult Index(Guid utilisateurId)
         {
             Models.ProduitPanier panier = this.DbContext.ProduitsPanier.Where(p => p.UtilisateurId == utilisateurId).First();
-            return View("Panier");
+
+            //if (panier.Produits.Count == 0)
+            //    ViewBag.Empty = true;
+            //else 
+            //    ViewBag.Empty = false;
+            panier.Produits.Add(this.DbContext.Produits.First());
+
+            return View("Panier", panier);
         }
         public IActionResult Paiement()
         {
